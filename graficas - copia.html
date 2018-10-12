@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+   
+  <title>Graficas de Buzon virtual</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+      .dropbtn {
+          background-color: #3498DB;
+          color: white;
+          padding: 25px;
+          font-size: 26px;
+          border: none;
+          cursor: pointer;
+      }
+      
+      .dropbtn:hover, .dropbtn:focus {
+          background-color: #2980B9;
+      }
+      
+      .dropdown {
+          position: relative;
+          display: inline-block;
+      }
+      
+      .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f1f1f1;
+          min-width: 160px;
+          overflow: auto;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+      }
+      
+      .dropdown-content a {
+          color: black;
+          padding: 12px 56px;
+          text-decoration: none;
+         display: block;
+      }
+      
+      .dropdown a:hover {background-color: #ddd;}
+      
+      .show {display: block;}
+      </style>
+    </head>
+    <body>
+        <h2 >Graficas Buzon virtual UNEDL </h2>
+        <p>Selecciona un plantel. </p>
+        
+<div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Planteles</button>
+      <div id="myDropdown" class="dropdown-content">
+        <a onclick=" drawCharting()">Plantel Económico Administrativas y Artes</a>
+        <a onclick=" drawCharting2()"> Plantel Ciencias de la Salud</a>
+        <a>Plantel Bachillerato General por Competencias </a>
+         <a >Plantel Ciencias Sociales e Ingeniería</a>
+         <a >Plantel Gastronomía, Turismo y Bachillerato Intensivo Semiescolarizado (BIS)</a>
+         <a >Plantel Ciencias Sociales e Ingeniería</a>
+      </div>
+    </div>
+    
+    <script>
+    /* When the user clicks on the button, 
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+    
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+    
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+    </script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+       <div id="chart_div"></div>
+    <br/>
+    <div id="btn-group">
+      <button class="button button-blue" id="none">No Format</button>
+      <button class="button button-blue" id="scientific">Scientific Notation</button>
+      <button class="button button-blue" id="decimal">Decimal</button>
+      <button class="button button-blue" id="short">Short</button>
+    </div>
+   
+   <script>
+         google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(todo, drawCharting,drawChart2);
+
+ 
+      //google.charts.setOnLoadCallback(drawChart2);
+
+  function todo() {
+    
+    var data = google.visualization.arrayToDataTable([
+      ['General', 'Queja', 'Sugerencia'],
+     
+    ]);
+
+    var options = {
+      chart: {
+        title: 'Graficas del Buzon',
+      
+      },
+      bars: 'vertical',
+      vAxis: {format: 'decimal'},
+      height: 400,
+      colors: ['#1b9e77', '#d95f02', '#7570b3']
+    };
+
+    var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+    chart.draw(data, google.charts.Bar.convertOptions(options));
+
+    var btns = document.getElementById('btn-group');
+
+    btns.onclick = function (e) {
+
+      if (e.target.tagName === 'BUTTON') {
+        options.vAxis.format = e.target.id === 'none' ? '' : e.target.id;
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    }
+  }
+
+      function drawCharting() {
+       
+        carrera = "Lic. Ingenieria en Software";
+        valorqueja = 23;
+        valorsugerencia = 10;
+        carrera2 = "Lic.Derecho";
+        valorqueja2 = 40;
+        valorsugerencia2 = 50;
+
+        var data = google.visualization.arrayToDataTable([
+          ['plantel Derecho', 'Queja', 'Sugerencia'],
+          [carrera, valorqueja,valorsugerencia],
+          [carrera2, valorqueja2,valorsugerencia2],
+
+        
+         // ['Derecho', 100, 400]
+        
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Graficas del Buzon',
+          
+          },
+          bars: 'vertical',
+          vAxis: {format: 'decimal'},
+          height: 400,
+          colors: ['#1b9e77', '#d95f02', '#7570b3']
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+
+        var btns = document.getElementById('btn-group');
+
+        btns.onclick = function (e) {
+
+          if (e.target.tagName === 'BUTTON') {
+            options.vAxis.format = e.target.id === 'none' ? '' : e.target.id;
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+          }
+        }
+      }
+
+  function drawChart2(plantel,carrera,valorqueja,valorsugerencia,carrera2,valorqueja2,valorsugerencia2) {
+    
+        var data = google.visualization.arrayToDataTable([
+          [plantel, 'Queja', 'Sugerencia'],
+          [carrera, valorqueja, valorsugerencia],
+          [carrera2, valorqueja2, valorsugerencia2]
+        
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Graficas del Buzon',
+          
+          },
+          bars: 'vertical',
+          vAxis: {format: 'decimal'},
+          height: 400,
+          colors: ['#1b9e77', '#d95f02', '#7570b3']
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+
+        var btns = document.getElementById('btn-group');
+
+        btns.onclick = function (e) {
+
+          if (e.target.tagName === 'BUTTON') {
+            options.vAxis.format = e.target.id === 'none' ? '' : e.target.id;
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+          }
+        }
+      }
+
+
+
+   </script>
+    </body>
+    
+    </html>
